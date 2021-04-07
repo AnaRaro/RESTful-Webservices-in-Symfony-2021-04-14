@@ -11,11 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class ListController
 {
-    private AttendeeRepository $attendeeRepository;
 
-    public function __construct(AttendeeRepository $attendeeRepository)
+    public function __construct(private AttendeeRepository $attendeeRepository)
     {
-        $this->attendeeRepository = $attendeeRepository;
     }
 
     #[Route(path: '/attendees', name: 'list_all_attendees', methods: ['GET'])]
