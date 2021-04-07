@@ -9,23 +9,22 @@ use App\Repository\AttendeeRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route(path: '/attendees', name: 'list_all_attendees', methods: ['GET'])]
 final class ListController
 {
-
     public function __construct(private AttendeeRepository $attendeeRepository)
     {
     }
 
-    #[Route(path: '/attendees', name: 'list_all_attendees', methods: ['GET'])]
-    public function list(): Response
+    public function __invoke(): Response
     {
-        $allAteendees = $this->attendeeRepository->findAll();
+        $allAttendees = $this->attendeeRepository->findAll();
 
-        $allAteendeesAsArray = array_map(
+        $allAttendeesAsArray = array_map(
             static fn (Attendee $attendee) => $attendee->toArray(),
-            $allAteendees
+            $allAttendees
         );
 
-        return new Response(json_encode($allAteendeesAsArray), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+        return new Response(json_encode($allAttendeesAsArray), Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 }

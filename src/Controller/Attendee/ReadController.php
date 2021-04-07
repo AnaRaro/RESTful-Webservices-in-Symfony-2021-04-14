@@ -9,15 +9,14 @@ use App\Repository\AttendeeRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route(path: '/attendees/{identifier}', name: 'read_attendee', methods: ['GET'])]
 final class ReadController
 {
-
     public function __construct(private AttendeeRepository $attendeeRepository)
     {
     }
 
-    #[Route(path: '/attendees/{identifier}', name: 'read_attendee', methods: ['GET'])]
-    public function read(Attendee $attendee): Response
+    public function __invoke(Attendee $attendee): Response
     {
         $attendee = $this->attendeeRepository->findOneBy($attendee->toArray());
 
